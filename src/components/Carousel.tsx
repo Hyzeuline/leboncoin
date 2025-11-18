@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { ComponentType } from "react";
 import cn from "../utils/cn";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useRef } from "react";
@@ -7,12 +7,8 @@ type TCarousselProps<T> = {
   data: T[];
   containerClassName?: string;
   itemClassName?: string;
-  Item: ({ data }: { data: T }) => ReactElement;
+  Item: ComponentType<{ data: T }>;
 };
-
-const carouselRef = useRef<HTMLDivElement | null>(null);
-
-console.log(carouselRef.current);
 
 const Caroussel = <T extends { id: number | string }>({
   data,
@@ -20,6 +16,7 @@ const Caroussel = <T extends { id: number | string }>({
   itemClassName,
   Item,
 }: TCarousselProps<T>) => {
+  const carouselRef = useRef<HTMLDivElement>(null);
   return (
     <div
       ref={carouselRef}

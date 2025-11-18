@@ -1,10 +1,26 @@
 import type { TProduct } from "../types";
 import { FaStar } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import { memo, useCallback, useContext } from "react";
+import { FavContext } from "../context/FavContext";
 
 type TProductProps = { data: TProduct };
 
 const Product = ({ data }: TProductProps) => {
+  const { fav, setFav } = useContext(FavContext);
+
+  const isFav = fav.some((p) => p.id === data.id);
+
+  const addToFav = useCallback(
+    () => setFav((prev) => [...prev, data]),
+    [setFav, data],
+  );
+  const removeFromFav = useCallback(
+    () => setFav((prev) => prev.filter((p) => p.id !== data.id)),
+    [setFav, data.id],
+  );
+
   return (
     <div className="h-[426px] w-44">
       <div className="mb-2.5 flex items-center gap-1.5">
@@ -32,10 +48,12 @@ const Product = ({ data }: TProductProps) => {
           <p>{data.place}</p>
           <p>{data.date}</p>
         </div>
-        <CiHeart />
+        <button onClick={isFav ? removeFromFav : addToFav}>
+          {isFav ? <FaHeart /> : <FaRegHeart />}
+        </button>
       </div>
     </div>
   );
 };
 
-export default Product;
+export default memo(Product);

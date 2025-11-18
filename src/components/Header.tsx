@@ -8,8 +8,25 @@ import { ButtonPost } from "./ButtonPost";
 import Container from "./Container";
 import { IoMenu } from "react-icons/io5";
 import logo from "../assets/logo.svg";
+import { useCallback, useContext, useState } from "react";
+import { ModalFav } from "./Modal";
+import { FavContext } from "../context/FavContext";
 
-export const Header = () => {
+type HeaderProps = {
+  favCount: number;
+};
+
+export const Header = ({ favCount }: HeaderProps) => {
+  const [modal, setModal] = useState<boolean>(false);
+  const { fav } = useContext(FavContext);
+  const handleOpenModal = useCallback(() => {
+    setModal(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setModal(false);
+  }, []);
+
   return (
     <header className="border-light-grey border-b-2">
       <Container className="py-4">
@@ -36,9 +53,16 @@ export const Header = () => {
               <NotificationsNoneOutlinedIcon />
               <h3>Notifications</h3>
             </div>
-            <div className="flex flex-col gap-2 text-xs">
-              {" "}
-              <FavoriteBorderOutlinedIcon />
+            <div
+              className="flex flex-col gap-2 text-xs"
+              onClick={handleOpenModal}
+            >
+              <div className="relative">
+                <FavoriteBorderOutlinedIcon />
+                <span className="absolute -top-1 right-1 rounded-full bg-red-500 px-1 text-[10px] text-white">
+                  {favCount}
+                </span>
+              </div>
               <h3>Favoris</h3>
             </div>
             <div className="flex flex-col gap-2 text-xs">
@@ -64,6 +88,7 @@ export const Header = () => {
           <li className="shrink-0">Autres</li>
         </ul>
       </Container>
+      <ModalFav fav={fav} open={modal} onClose={handleCloseModal} />
     </header>
   );
 };
