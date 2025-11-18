@@ -2,7 +2,7 @@ import type { TProduct } from "../types";
 import { FaStar } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { memo, useCallback, useContext } from "react";
+import { useCallback, useContext } from "react";
 import { FavContext } from "../context/FavContext";
 
 type TProductProps = { data: TProduct };
@@ -56,4 +56,4 @@ const Product = ({ data }: TProductProps) => {
   );
 };
 
-export default memo(Product);
+export default Product;
