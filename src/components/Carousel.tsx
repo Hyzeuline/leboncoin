@@ -37,7 +37,7 @@ const Caroussel = <T extends { id: number | string }>({
           carouselRef.current?.scrollTo({ left: 0, behavior: "smooth" })
         }
       >
-        <IoArrowBackCircleOutline />
+        <IoArrowBackCircleOutline className="text-3xl" />
       </button>
     </div>
   );

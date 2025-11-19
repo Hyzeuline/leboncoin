@@ -12,13 +12,12 @@ import { useCallback, useContext, useState } from "react";
 import { ModalFav } from "./Modal";
 import { FavContext } from "../context/FavContext";
 
-type HeaderProps = {
-  favCount: number;
-};
-
-export const Header = ({ favCount }: HeaderProps) => {
+export const Header = () => {
   const [modal, setModal] = useState<boolean>(false);
   const { fav } = useContext(FavContext);
+
+  const favCount = fav.length;
+
   const handleOpenModal = useCallback(() => {
     setModal(true);
   }, []);

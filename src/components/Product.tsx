@@ -2,24 +2,15 @@ import type { TProduct } from "../types";
 import { FaStar } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { useCallback, useContext } from "react";
+import { useContext } from "react";
 import { FavContext } from "../context/FavContext";
 
 type TProductProps = { data: TProduct };
 
 const Product = ({ data }: TProductProps) => {
-  const { fav, setFav } = useContext(FavContext);
+  const { fav, removeFromFav, addToFav } = useContext(FavContext);
 
-  const isFav = fav.some((p) => p.id === data.id);
-
-  const addToFav = useCallback(
-    () => setFav((prev) => [...prev, data]),
-    [setFav, data],
-  );
-  const removeFromFav = useCallback(
-    () => setFav((prev) => prev.filter((p) => p.id !== data.id)),
-    [setFav, data.id],
-  );
+  const isFav = fav.some((elem) => elem.id === data.id);
 
   return (
     <div className="h-[426px] w-44">
@@ -32,7 +23,12 @@ const Product = ({ data }: TProductProps) => {
         <span className="w-20 overflow-hidden text-ellipsis whitespace-nowrap">
           {data.username}
         </span>
-        {data.stars && <FaStar className="text-dark-brown" />}
+        {data.stars && (
+          <span className="flex justify-center gap-2">
+            <FaStar className="text-dark-brown" />
+            {data.stars}
+          </span>
+        )}
         {data.comments && <span>({data.comments})</span>}
       </div>
       <img
@@ -48,7 +44,11 @@ const Product = ({ data }: TProductProps) => {
           <p>{data.place}</p>
           <p>{data.date}</p>
         </div>
-        <button onClick={isFav ? removeFromFav : addToFav}>
+        <button
+          onClick={() => {
+            isFav ? removeFromFav(data) : addToFav(data);
+          }}
+        >
           {isFav ? <FaHeart /> : <FaRegHeart />}
         </button>
       </div>
