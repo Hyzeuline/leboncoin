@@ -1,3 +1,4 @@
+import { memo } from "react";
 import cn from "../utils/cn";
 
 type TTitleProps = {
@@ -17,4 +18,4 @@ const Title = ({ children, level, className }: TTitleProps) => {
     );
 };
 
-export default Title;
+export default memo(Title);

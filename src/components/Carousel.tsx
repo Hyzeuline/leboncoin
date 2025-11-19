@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 import cn from "../utils/cn";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
 type TCarousselProps<T> = {
   data: T[];
@@ -43,4 +43,4 @@ const Caroussel = <T extends { id: number | string }>({
   );
 };
 
-export default Caroussel;
+export default memo(Caroussel) as typeof Caroussel;

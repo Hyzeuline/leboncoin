@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import cn from "../utils/cn";
 
 type TContainerProps = {
@@ -7,7 +7,16 @@ type TContainerProps = {
 };
 
 const Container = ({ children, className }: TContainerProps) => {
-  return <div className={cn("px-4", className)}>{children}</div>;
+  return (
+    <div
+      className={cn(
+        "font-nunito-sans px-4 lg:mr-[110px] lg:ml-[110px] xl:mr-[212px] xl:ml-[212px]",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
-export default Container;
+export default memo(Container);

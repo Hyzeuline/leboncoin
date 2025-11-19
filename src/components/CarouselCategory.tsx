@@ -1,3 +1,4 @@
+import { memo } from "react";
 import data from "../assets/data.json";
 import type { TCategorie } from "../types";
 import Caroussel from "./Carousel";
@@ -27,4 +28,4 @@ const CarouselCategories = () => {
   );
 };
 
-export default CarouselCategories;
+export default memo(CarouselCategories);

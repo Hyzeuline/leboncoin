@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export type TCategorie = {
   id: number;
   image: string;
@@ -17,3 +19,7 @@ export type TProduct = {
   place: string;
   date: string;
 };
+
+export type TSetState<T> = Dispatch<SetStateAction<T>>;
+
+export type TTheme = "light" | "dark";

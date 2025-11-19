@@ -1,6 +1,7 @@
 import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
+import { memo } from "react";
 
-export const ButtonPost = () => {
+const ButtonPost = () => {
   return (
     <button className="lg:flex-center hidden lg:flex lg:gap-2 lg:rounded-xl lg:bg-[#EC5A15] lg:p-2 lg:text-white">
       <LocalHospitalOutlinedIcon />
@@ -8,3 +9,5 @@ export const ButtonPost = () => {
     </button>
   );
 };
+
+export default memo(ButtonPost);

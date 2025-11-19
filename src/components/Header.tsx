@@ -4,17 +4,19 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { ButtonPost } from "./ButtonPost";
+import ButtonPost from "./ButtonPost";
 import Container from "./Container";
 import { IoMenu } from "react-icons/io5";
 import logo from "../assets/logo.svg";
-import { useCallback, useContext, useState } from "react";
-import { ModalFav } from "./Modal";
+import { memo, useCallback, useContext, useState } from "react";
+import ModalFav from "./Modal";
 import { FavContext } from "../context/FavContext";
+import { ThemeContext } from "../context/ThemeContext";
 
-export const Header = () => {
+const Header = () => {
   const [modal, setModal] = useState<boolean>(false);
-  const { fav } = useContext(FavContext);
+  const { fav, total } = useContext(FavContext);
+  const { toggle } = useContext(ThemeContext);
 
   const favCount = fav.length;
 
@@ -44,10 +46,10 @@ export const Header = () => {
             <FaMagnifyingGlass />
           </div>
           <div className="hidden lg:flex lg:flex-row lg:gap-2">
-            <div className="flex flex-col gap-2 text-xs">
+            <button onClick={toggle} className="flex flex-col gap-2 text-xs">
               <DarkModeOutlinedIcon />
               <h3>DarkMode</h3>
-            </div>
+            </button>
             <div className="flex flex-col gap-2 text-xs">
               <NotificationsNoneOutlinedIcon />
               <h3>Notifications</h3>
@@ -87,7 +89,13 @@ export const Header = () => {
           <li className="shrink-0">Autres</li>
         </ul>
       </Container>
-      <ModalFav fav={fav} open={modal} onClose={handleCloseModal} />
+      <ModalFav
+        fav={fav}
+        open={modal}
+        onClose={handleCloseModal}
+        total={total}
+      />
     </header>
   );
 };
+export default memo(Header);

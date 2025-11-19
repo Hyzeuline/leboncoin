@@ -5,10 +5,11 @@ import Title from "./Title";
 import data from "../assets/data.json";
 import type { TProduct } from "../types";
 import Product from "./Product";
+import { memo, useMemo } from "react";
 
 const Main = () => {
-  const tablets: TProduct[] = data.products.tablets;
-  const consols: TProduct[] = data.products.consols;
+  const tablets: TProduct[] = useMemo(() => data.products.tablets, []);
+  const consols: TProduct[] = useMemo(() => data.products.consols, []);
 
   return (
     <main>
@@ -28,4 +29,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default memo(Main);

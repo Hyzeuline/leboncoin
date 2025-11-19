@@ -1,22 +1,21 @@
 import { Modal as MUIModal } from "@mui/material";
 import type { TProduct } from "../types";
-import { calculateTotal } from "../utils/calculateTotal";
-import { useMemo } from "react";
+import { memo } from "react";
 
 type FavModalProps = {
   fav: TProduct[];
   open: boolean;
   onClose: () => void;
+  total: number;
 };
 
-export const ModalFav = ({ fav, open, onClose }: FavModalProps) => {
-  const getTotal = useMemo(() => calculateTotal(fav), [fav]);
+const ModalFav = ({ fav, open, onClose, total }: FavModalProps) => {
   return (
     <MUIModal open={open} onClose={onClose}>
       <div className="fixed top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg">
         <h2 className="mb-4 text-lg font-bold">Mes favoris</h2>
         {fav.length === 0 ? (
-          <p>Aucun favori.</p>
+          <p>Aucun favoris</p>
         ) : (
           fav.map((element) => (
             <div key={element.id} className="mb-4 flex justify-around">
@@ -34,8 +33,10 @@ export const ModalFav = ({ fav, open, onClose }: FavModalProps) => {
             </div>
           ))
         )}
-        <p>Prix total : {getTotal} €</p>
+        <p>Prix total : {total} €</p>
       </div>
     </MUIModal>
   );
 };
+
+export default memo(ModalFav);

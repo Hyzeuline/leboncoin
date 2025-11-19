@@ -8,7 +8,7 @@ import { FavContext } from "../context/FavContext";
 type TProductProps = { data: TProduct };
 
 const Product = ({ data }: TProductProps) => {
-  const { fav, removeFromFav, addToFav } = useContext(FavContext);
+  const { fav, dispatch } = useContext(FavContext);
 
   const isFav = fav.some((elem) => elem.id === data.id);
 
@@ -46,10 +46,12 @@ const Product = ({ data }: TProductProps) => {
         </div>
         <button
           onClick={() => {
-            isFav ? removeFromFav(data) : addToFav(data);
+            isFav
+              ? dispatch({ type: "removeFromFav", payload: data })
+              : dispatch({ type: "addToFav", payload: data });
           }}
         >
-          {isFav ? <FaHeart /> : <FaRegHeart />}
+          {isFav ? <FaHeart className="text-red-600" /> : <FaRegHeart />}
         </button>
       </div>
     </div>
