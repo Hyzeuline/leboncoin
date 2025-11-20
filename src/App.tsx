@@ -2,15 +2,13 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Post from "./components/Post";
 
-import { FavProvider } from "./context/FavContext";
-
 import cn from "./utils/cn";
 
-import { ThemeContext } from "./context/ThemeContext";
-import { useContext } from "react";
+import { FavProvider } from "./context/providers/FavContextProvider";
+import { useThemeContext } from "./context/hooks/useThemeContext";
 
 function App() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useThemeContext();
 
   return (
     <FavProvider>

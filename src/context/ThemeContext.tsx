@@ -1,4 +1,4 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext } from "react";
 import type { TTheme } from "../types";
 
 export type TThemeContext = {
@@ -12,21 +12,3 @@ export const ThemeContext = createContext<TThemeContext>({
   setTheme: () => {},
   toggle: () => {},
 });
-
-export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<TTheme>("light");
-
-  const toggle = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-
-  return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        setTheme,
-        toggle,
-      }}
-    >
-      {children}
-    </ThemeContext.Provider>
-  );
-};

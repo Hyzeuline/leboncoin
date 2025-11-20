@@ -10,12 +10,13 @@ import { IoMenu } from "react-icons/io5";
 import logo from "../assets/logo.svg";
 import { memo, useCallback, useContext, useState } from "react";
 import ModalFav from "./Modal";
-import { FavContext } from "../context/FavContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { useFavContext } from "../context/hooks/useFavContext";
 
 const Header = () => {
   const [modal, setModal] = useState<boolean>(false);
-  const { fav, total } = useContext(FavContext);
+
+  const { fav, total } = useFavContext();
   const { toggle } = useContext(ThemeContext);
 
   const favCount = fav.length;

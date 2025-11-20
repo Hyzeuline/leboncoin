@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext } from "react";
 import type { TProduct } from "../types";
 import { calculateTotal } from "../utils/calculateTotal";
 
@@ -8,7 +8,7 @@ type TAction =
   | { type: "addToFav"; payload: TProduct }
   | { type: "removeFromFav"; payload: TProduct };
 
-const favReducer = (state: TState, action: TAction) => {
+export const favReducer = (state: TState, action: TAction) => {
   switch (action.type) {
     case "addToFav":
       const newFav = [...state.fav, action.payload];
@@ -35,20 +35,3 @@ export const FavContext = createContext<FavContextType>({
 
   total: 0,
 });
-
-export const FavProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = useReducer(favReducer, { fav: [], total: 0 });
-  const { fav, total } = state;
-
-  return (
-    <FavContext.Provider
-      value={{
-        fav,
-        dispatch,
-        total,
-      }}
-    >
-      {children}
-    </FavContext.Provider>
-  );
-};
